@@ -1259,6 +1259,15 @@ footer p { margin:0 0 7px; }
       downloadBtn.download = p.id + '.jpg';
     }
 
+    // Sync with open lightbox if currently active
+    const lbModal = document.getElementById('lb');
+    if (lbModal && lbModal.hasAttribute('open')) {
+      const lbImg = lbModal.querySelector('img');
+      const lbCap = lbModal.querySelector('figcaption');
+      if (lbImg) lbImg.src = p.full_url;
+      if (lbCap) lbCap.textContent = p.id + ' — ' + p.title + ' (' + p.dim + ')';
+    }
+
     // Update active thumbnail in filmstrip
     thumbItems.forEach(item => {
       const idx = parseInt(item.dataset.idx, 10);
@@ -1335,16 +1344,34 @@ footer p { margin:0 0 7px; }
     });
   });
 
-  // Keyboard navigation when hovering gallery
-  const galSection = document.getElementById('gallery');
-  if (galSection) {
-    document.addEventListener('keydown', (e) => {
-      const rect = galSection.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!inView) return;
-      if (e.key === 'ArrowRight') next();
-      else if (e.key === 'ArrowLeft') prev();
-    });
+  // Global Keyboard Navigation (ArrowLeft / ArrowRight / A / D)
+  document.addEventListener('keydown', (e) => {
+    // Ignore when user is typing in an input or textarea
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return;
+
+    if (e.key === 'ArrowRight' || e.key === 'Right') {
+      e.preventDefault();
+      next();
+    } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+      e.preventDefault();
+      prev();
+    }
+  });
+
+  // Touch swipe support for mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const sliderEl = document.querySelector('.gallery-main-view');
+  if (sliderEl) {
+    sliderEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    sliderEl.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (diff > 50) prev();
+      else if (diff < -50) next();
+    }, { passive: true });
   }
 
   // Initial display
