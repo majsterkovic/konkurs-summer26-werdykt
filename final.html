@@ -67,7 +67,29 @@ a.back { color:var(--faint); font-size:14px; }
     <a class="btn" href="final/AI_baza__rynek.jpg" download>⬇ Pobierz JPG</a>
   </div>
 
+  <h1 style="margin-top:56px">Prompty do generatora</h1>
+  <p class="sub">AI-magine Summer Anew — wklej pod odpowiadającą bazę. Kliknij kopiuj i wklej w firmowym generatorze.</p>
+
+  <div class="card">
+    <div class="meta"><code>Mgła → plastelina</code><span id="p1">Przekształć to zdjęcie w scenę z plasteliny w stylu firmowych reklam: mglisty górski kocioł, miękka puchata chmura z plasteliny przelewająca się przez grań, głazy i kosodrzewina ulepione z kolorowej plasteliny z widoczną fakturą odcisków palców, dwie postacie turystek jako urocze nierozpoznawalne ludziki z plasteliny w niebieskiej i fioletowej kurtce. Zachowaj kompozycję zdjęcia. Słonecznie, ciepło, radosny letni nastrój, styl poklatkowy.</span></div>
+    <a class="btn" href="#" onclick="kopiuj('p1',this);return false">⧉ Kopiuj</a>
+  </div>
+  <div class="card">
+    <div class="meta"><code>Wodospad → plastelina</code><span id="p2">Przekształć to zdjęcie w scenę z plasteliny w stylu firmowych reklam: wodospad spływający po mszystych skałach z plasteliny, biała pienista woda z plasteliny, bujna zielona roślinność ulepiona z plasteliny z widoczną fakturą odcisków palców, pochylony pień drzewa nad wodą. Zachowaj esowaty kształt kaskady i kompozycję zdjęcia. Soczyste kolory, słonecznie, radosny letni nastrój, styl poklatkowy.</span></div>
+    <a class="btn" href="#" onclick="kopiuj('p2',this);return false">⧉ Kopiuj</a>
+  </div>
+  <div class="card">
+    <div class="meta"><code>Rynek → plastelina</code><span id="p3">Przekształć to zdjęcie w scenę z plasteliny w stylu firmowych reklam: praski Rynek Staromiejski jako bajkowe miasteczko z plasteliny — gotyckie wieże Kościoła Tyńskiego, kolorowe fasady kamienic, pomarańczowe dachówki, brukowany plac z miniaturowymi ludzikami z plasteliny. Widoczna faktura odcisków palców. Zachowaj kompozycję zdjęcia. Złota godzina, ciepło, radosny letni nastrój, styl poklatkowy.</span></div>
+    <a class="btn" href="#" onclick="kopiuj('p3',this);return false">⧉ Kopiuj</a>
+  </div>
+
   <p><a class="back" href="index.html">← Wróć do werdyktu</a></p>
+<script>
+function kopiuj(id, el) {
+  var t = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(t).then(function(){ el.innerText = '✓ Skopiowano'; });
+}
+</script>
 </div>
 </body>
 </html>
